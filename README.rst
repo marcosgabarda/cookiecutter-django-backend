@@ -31,7 +31,7 @@ First, get Cookiecutter.::
 
 Now run it against this repo::
 
-    $ cookiecutter  https://github.com/marcosgabarda/cookiecutter-backend
+    $ cookiecutter https://github.com/marcosgabarda/cookiecutter-backend
 
 Django Rest Framework
 ---------------------
