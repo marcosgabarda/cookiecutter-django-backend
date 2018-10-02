@@ -18,7 +18,7 @@ django-environ==0.4.5  # https://github.com/joke2k/django-environ
 django-model-utils==3.1.2  # https://github.com/jazzband/django-model-utils
 django-redis==4.9.0  # https://github.com/niwinz/django-redis
 django-filter==2.0.0  # https://django-filter.readthedocs.io/en/master/
-django-belt==1.0.0  # https://github.com/marcosgabarda/django-belt
+django-belt==1.0.1  # https://github.com/marcosgabarda/django-belt
 django-simple-options==1.0.0  # https://github.com/marcosgabarda/django-simple-options
 
 # Django REST Framework
