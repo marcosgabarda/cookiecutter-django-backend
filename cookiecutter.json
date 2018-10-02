@@ -1,0 +1,37 @@
+{
+  "project_name": "Default Project",
+  "project_slug": "{{ cookiecutter.project_name.lower()|replace(' ', '_')|replace('-', '_') }}",
+  "description": "An awesome project",
+  "author_name": "Marcos Gabarda",
+  "domain_name": "example.com",
+  "email": "hey@marcosgabarda.com",
+  "version": "0.1.0",
+  "open_source_license": [
+    "Not open source",
+    "MIT",
+    "BSD",
+    "GPLv3",
+    "Apache Software License 2.0"
+  ],
+  "timezone": "UTC",
+  "windows": "n",
+  "use_pycharm": "n",
+  "use_postgis": "n",
+  "postgresql_version": [
+    "10.4",
+    "10.3",
+    "10.2",
+    "10.1",
+    "9.6",
+    "9.5",
+    "9.4",
+    "9.3"
+  ],
+  "use_cors": "y",
+  "use_oauth": "n",
+  "use_celery": "n",
+  "use_mailhog": "n",
+  "use_sentry": "n",
+  "use_whitenoise": "n",
+  "debug": "n"
+}
