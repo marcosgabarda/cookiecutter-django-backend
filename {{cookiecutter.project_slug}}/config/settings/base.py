@@ -190,8 +190,6 @@ TEMPLATES = [
         },
     },
 ]
-# http://django-crispy-forms.readthedocs.io/en/latest/install.html#template-packs
-CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 # FIXTURES
 # ------------------------------------------------------------------------------
