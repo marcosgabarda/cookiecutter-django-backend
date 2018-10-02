@@ -243,12 +243,14 @@ CELERYD_TASK_SOFT_TIME_LIMIT = 60
 # ------------------------------------------------------------------------------
 ENABLE_CUSTOM_EMAIL_SENDING = True
 
+{% if cookiecutter.use_postgis == 'y' -%}
 # DJANGO BELT
 # ------------------------------------------------------------------------------
 # See: https://github.com/marcosgabarda/django-belt
 INSTALLED_APPS += (
     'belt',
 )
+{%- endif %}
 
 # DJANGO REST FRAMEWORK
 # ------------------------------------------------------------------------------
