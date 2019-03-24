@@ -48,7 +48,7 @@ class TemplateEmailMessage(object):
                 self.subject, message_txt, message, self.from_email, self.to
             )
             if self.attaches:
-                warnings.warn('Attaches will not added to the email, use async=False to send attaches.')
+                warnings.warn('Attaches will not added to the email, use use_async=False to send attaches.')
     {%- endif %}
 
     def sync_send(self, message, message_txt):
@@ -65,7 +65,7 @@ class TemplateEmailMessage(object):
                 email.attach(attach_file_name, attach_content, attach_content_type)
             email.send()
 
-    def send(self{%- if cookiecutter.use_celery == "y" %}, async=True{%- endif %}):
+    def send(self{%- if cookiecutter.use_celery == "y" %}, use_async=True{%- endif %}):
         """Sends the email at the moment or using a Celery task."""
         if not settings.ENABLE_CUSTOM_EMAIL_SENDING:
             return
@@ -76,7 +76,7 @@ class TemplateEmailMessage(object):
         message_txt = bleach.clean(message_txt, strip=True)
 
         {%- if cookiecutter.use_celery == "y" %}
-        if async:
+        if use_async:
             self.async_send(message, message_txt)
         else:
             self.sync_send(message, message_txt)

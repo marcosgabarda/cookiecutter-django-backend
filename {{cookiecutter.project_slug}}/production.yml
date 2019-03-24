@@ -3,7 +3,8 @@ version: '3'
 volumes:
   production_postgres_data: {}
   production_postgres_data_backups: {}
-  production_caddy: {}
+  production_media: {}
+  production_static: {}
 
 services:
   django:{% if cookiecutter.use_celery == 'y' %} &django{% endif %}
@@ -18,6 +19,9 @@ services:
       - ./.envs/.production/.django
       - ./.envs/.production/.postgres
     command: /start
+    volumes:
+      - production_media:/data/media
+      - production_static:/data/static
 
   postgres:
     build:
@@ -30,20 +34,36 @@ services:
     env_file:
       - ./.envs/.production/.postgres
 
-  caddy:
+  nginx:
     build:
       context: .
-      dockerfile: ./compose/production/caddy/Dockerfile
-    image: {{ cookiecutter.project_slug }}_production_caddy
+      dockerfile: ./compose/production/nginx/Dockerfile
     depends_on:
       - django
-    volumes:
-      - production_caddy:/root/.caddy
     env_file:
-      - ./.envs/.production/.caddy
+      - ./.envs/.production/.nginx
+    networks:
+      traefik:
+        aliases:
+          - {{ cookiecutter.project_slug }}_nginx
+      default:
+        aliases:
+          - nginx
     ports:
-      - "0.0.0.0:80:80"
-      - "0.0.0.0:443:443"
+      - "80"
+    labels:
+      - traefik.enable=true
+      - traefik.backend={{ cookiecutter.project_slug }}_nginx
+      - traefik.frontend.rule=Host:{{cookiecutter.domain_name}}
+      - traefik.docker.network=traefik
+      - traefik.port=80
+      - traefik.protocol=http
+    volumes:
+      - production_media:/data/media
+      - production_static:/data/static
+
+  redis:
+    image: redis:3.2
 
   redis:
     image: redis:3.2
@@ -67,3 +87,7 @@ services:
     command: /start-flower
 
   {%- endif %}
+
+networks:
+  traefik:
+    external: true

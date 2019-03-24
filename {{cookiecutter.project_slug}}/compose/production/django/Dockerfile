@@ -1,4 +1,4 @@
-FROM python:3.6-alpine
+FROM python:3.7-alpine
 
 ENV PYTHONUNBUFFERED 1
 
@@ -42,9 +42,14 @@ RUN addgroup -S django \
     && adduser -S -G django django
 
 # Requirements are installed here to ensure they will be cached.
-COPY ./requirements /requirements
-RUN pip install --no-cache-dir -r /requirements/production.txt \
-    && rm -rf /requirements
+RUN pip install pipenv
+COPY ./Pipfile /app/Pipfile
+COPY ./Pipfile.lock /app/Pipfile.lock
+WORKDIR /app
+RUN pipenv install --system --deploy
+WORKDIR /
+RUN rm -rf /app/Pipfile \
+  && rm -rf /app/Pipfile.lock
 
 COPY ./compose/production/django/entrypoint /entrypoint
 RUN sed -i 's/\r//' /entrypoint

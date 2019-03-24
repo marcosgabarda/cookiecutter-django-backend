@@ -1,0 +1,52 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+django = "*"
+django-environ = "*"
+django-model-utils = "*"
+django-filter = "*"
+djangorestframework = "*"
+"psycopg2-binary" = "*"
+{%- if cookiecutter.use_oauth == 'y' %}
+django-oauth-toolkit = "*"
+{%- endif %}
+{%- if cookiecutter.use_cors == 'y' %}
+django-cors-headers = "*"
+{%- endif %}
+django-simple-options = "*"
+bleach = "*"
+django-belt = "*"
+coreapi = "*"
+"argon2-cffi" = "*"
+gunicorn = "*"
+whitenoise = "*"
+{%- if cookiecutter.use_whitenoise == 'n' %}
+collectfast = "*"
+{%- endif %}
+django-redis = "*"
+{%- if cookiecutter.use_celery == "y" %}
+celery = "*" 
+flower = "*"
+{%- endif %}
+
+[dev-packages]
+mypy = "*"
+pytest = "*"
+pytest-sugar = "*"
+"flake8" = "*"
+coverage = "*"
+factory-boy = "*"
+django-debug-toolbar = "*"
+django-extensions = "*"
+django-coverage-plugin = "*"
+pytest-django = "*"
+pylint = "*"
+black = "==18.9b0"
+django-test-plus = "*"
+werkzeug = "*"
+
+[requires]
+python_version = "3.7"

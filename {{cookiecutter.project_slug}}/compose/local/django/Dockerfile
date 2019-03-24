@@ -43,8 +43,14 @@ RUN ln -s /usr/lib/libgeos_c.so.1 /usr/local/lib/libgeos_c.so
 {%- endif %}
 
 # Requirements are installed here to ensure they will be cached.
-COPY ./requirements /requirements
-RUN pip install -r /requirements/local.txt
+RUN pip install pipenv
+COPY ./Pipfile /app/Pipfile
+COPY ./Pipfile.lock /app/Pipfile.lock
+WORKDIR /app
+RUN pipenv install --dev --system --deploy
+WORKDIR /
+RUN rm -rf /app/Pipfile \
+  && rm -rf /app/Pipfile.lock
 
 COPY ./compose/production/django/entrypoint /entrypoint
 RUN sed -i 's/\r//' /entrypoint
